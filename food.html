@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+</head>
+
+<script type = "text/template" id = "template">
+    <div class = "card">
+        <h1>{{question}}</h1>
+        <p>1) {{choice1}}</p>
+        <p>2) {{choice2}}</p>
+        <p>3) {{choice3}}</p>
+        <p>4) {{choice4}}</p>
+        <input type = "text" id = "{{id}}" placeholder = "Enter Choice" class="answer">
+    </div>
+    </script>
+    <script>
+        var data;
+        function loadJSON(){
+            $.getJSON("https://ultimatesurvival-8ad92.firebaseio.com/.json",function(results){
+                data = results;
+                displayData();
+            })
+        }
+        function displayData(){
+            var build = "";
+            var output=document.getElementById("output");
+            var template=document.getElementById("template").innerHTML;
+            for(var key in data.food){
+                build += Mustache.render(template,data.food[key]);
+                }
+            output.innerHTML= build;
+        }
+        function grade(){
+            var score = 0;
+            for(var i = 1; i <= 5; i++){
+                var correctAnswer = data.food["q" + i].answer;
+                var userAnswer = document.getElementById("q" + i).value;
+                if(correctAnswer == userAnswer){
+                    score ++;
+                }
+            }
+            alert("You scored " + score);
+        }
+    </script>
+
+<style>
+.jumbotron{
+    text-align: center;
+    background-color: plum;
+    color: #4CAF50;
+    text-shadow: 3px 2px purple;
+}
+.jumbotron2{
+    text-align: center;
+    background-color: plum;
+    color: #4CAF50;
+    text-shadow: 3px 2px purple;
+}
+
+.logo{
+  height:200px;
+}
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+body{
+    margin:0;
+}
+
+.icon-bar {
+    width: 75px;
+    background-color: #4CAF50;
+}
+
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: #D3D3D3;
+}
+
+.active {
+    background-color: plum ;
+}
+
+.image{
+    width: 50%;
+    height: 50%;
+    padding: 5px;
+    float: left;
+}
+
+.explanantion{
+    text-align: center;
+    font-size: 16pt;
+}
+
+.panel-body{
+    height: 500px;
+}
+.button{
+    height: 50px;
+    width: 200px;
+    font-size: 20pt;
+    color: plum;
+}
+.active2{
+background-color:white !important;
+}
+
+.image2{
+    width: 60%;
+    height: 60%;
+    padding: 5px;
+    float: left;
+}
+
+.text{
+    font-size: 14pt;
+}
+
+.image3{
+    height: 100%;
+    width: 100%;
+}
+.modal-dialog{
+    font-size: 19pt;
+    color: purple
+}
+.heading1{
+    font-size: 19pt;
+    font-weight: bold;
+    color: purple;
+}
+.answer{
+    width: 200px;
+    background-color: #D3D3D3;
+}
+</style>
+
+
+<script>
+    $(document).ready(function(){
+        $(".nav-tabs a").click(function(){
+            $(this).tab('show');
+        });
+    });
+</script>
+
+<body onload="loadJSON()">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <h1>How to Find Food!</h1> 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="center">
+                <img class="logo" src="images/food.png">
+            </div>
+        </div>    
+
+    </div>
+    
+    <div class="row">
+
+        <div class="col-md-1">
+            <div class="icon-bar">
+                <a class="active" href="index.html"><i class="fa fa-home"></i></a> 
+                <a href="about.html"><i class="fa fa-users"></i></a> 
+                <a href="fire.html"><i class="fa fa-free-code-camp"></i></a> 
+                <a href="shelter.html"><i class="fa fa-bed"></i></a> 
+                <a href="food.html"><i class="fa fa-cutlery"></i></a>
+                <a href="water.html"><i class="fa fa-tint"></i></a> 
+            </div>
+        </div>
+        <div class="col-md-11">
+            <div class="jumbotron2">
+                <h1>Finding Edible Berries</h1>
+            </div>
+             <div class="explanantion">
+                <p>It is very important that you are able to recognize poisonous berries, so that one day you do not put yourself in danger. Out there, there are numerous amount of different type of berries, and its up to you to know which ones are edible!</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Recognizing Common Poisonous Berries</h3> 
+                            </div>
+                            <div class="tabs" >
+                                <ul class="nav nav-tabs" >
+                                    <li class="active2"><a data-toggle="tab" href="#berry1">Berry1</a></li>
+                                    <li class="active2"><a href="#berry2">Berry2</a></li>
+                                    <li class="active2"><a href="#berry3">Berry3</a></li>
+                                    <li class="active2"><a href="#berry4">Berry4</a></li>
+                                    <li class="active2"><a href="#berry5">Berry5</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="berry1" class="tab-pane fade in active" style="background-color:white">
+                                        <p class="text">Stay away from dark blue Virginia creepers. They have five-fingered leaves, grow tall, and are popular as a wall creeper. The berries are dark and blue. They are sometimes confused with the three-fingered poison ivy.</p>
+                                        <img class="image2" src="images/berry1.jpg">
+                                    </div>
+                                    <div id="berry2" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">Stick away from Yew leaves and berries. The leaf is more toxic than the berries. The berries are fleshy in appearance and bright scarlet. They have a cup-like depression at the base. The berry itself is not dangerous, but you should still avoid yew at all cost. The seeds can cause instant death.</p>
+                                         <img class="image2" src="images/berry2.jpg">
+                                    </div>
+                                    <div id="berry3" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">Stay away from Holly. The Christmas bush has pointy, waxy leaves and bright-red berry clusters. One or two might not cause issues, but 15-20 can be fatal.</p>
+                                        <img class="image2" src="images/berry3.jpg">
+                                    </div>
+                                    <div id="berry4" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">Don't eat Dogwood berries. Found in the eastern US in fall and winter, these dark red berries (with small, brown tips at the end), usually come in small clusters. The leaves are broad and rounded. While not deadly, you won't be having fun for the next few hours. </p>
+                                        <img class="image2" src="images/berry4.jpg">
+                                    </div>
+                                    <div id="berry5" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">Pass on the yellow-orange American Bittersweet. Resembling little lemons mixed with grapes, the yellow berries come in big bunches. They have a little yellow tail at the end of them. American Bittersweet is common in the mid-Atlantic region of the US.</p>
+                                        <img class="image2" src="images/berry5.jpg">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Know the Symptoms of Berry Poisoning</h3> 
+                            </div>
+                            <div class="text">
+                                <p>Symptoms of plant poisoning range from irritation of the skin or mucous membranes of the mouth and throat to nausea, vomiting , convulsions, irregular heartbeat, and even death. It is often difficult to tell if a person has eaten a poisonous plant because there are no tell-tale empty containers and no unusual lesions or odors around the mouth.</p>
+                            </div>
+                            <img class="image" src="images/sick.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>What Plants are Safe?</h3> 
+                            </div>
+                            <div class="tabs" >
+                                <ul class="nav nav-tabs" >
+                                    <li class="active2"><a data-toggle="tab" href="#plant1">Clover</a></li>
+                                    <li class="active2"><a href="#plant2">Chicory</a></li>
+                                    <li class="active2"><a href="#plant3">Dandelion</a></li>
+                                    <li class="active2"><a href="#plant4">Kelp</a></li>
+                                    <li class="active2"><a href="#plant5">Plantain</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="plant1" class="tab-pane fade in active" style="background-color:white">
+                                        <p class="text">Lucky you — clovers are actually edible. And they’re found just about everywhere there’s an open grassy area. You can spot them by their distinctive trefoil leaflets. You can eat clovers raw, but they taste better boiled.</p>
+                                        <img class="image2" src="images/plant1.jpg">
+                                    </div>
+                                    <div id="plant2" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">It’s a bushy plant with small blue, lavender, and white flowers. You can eat the entire plant. Pluck off the young leaves and eat them raw or boil them. The chicory’s roots will become tasty after boiling. And you can pop the flowers in your mouth for a quick snack.</p>
+                                         <img class="image2" src="images/plant2.jpg">
+                                    </div>
+                                    <div id="plant3" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">The entire plant is edible — roots, leaves, and flower. Eat the leaves while they’re still young; mature leaves taste bitter. If you do decide to eat the mature leaves, boil them first to remove their bitter taste. Boil the roots before eating as well.</p>
+                                        <img class="image2" src="images/plant3.jpg">
+                                    </div>
+                                    <div id="plant4" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">Kelp is another form of seaweed. You can find it in most parts of the world. Eat it raw or include it in a soup. Kelp is a great source of folate, vitamin K, and lignans.</p>
+                                        <img class="image2" src="images/plant4.jpg">
+                                    </div>
+                                    <div id="plant5" class="tab-pane fade" style="background-color:white">
+                                        <p class="text">You can usually find plantains in wet areas like marshes and bogs, but they’ll also sprout up in alpine areas. The oval, ribbed, short-stemmed leaves tend to hug the ground. Plantain is very high in vitamin A and calcium. It also provides a bit of vitamin C.</p>
+                                        <img class="image2" src="images/plant5.jpg">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3> Things to Know aboout all the Meats</h3> 
+                                <div class="tabs" >
+                                <ul class="nav nav-tabs" >
+                                    <li class="active2"><a data-toggle="tab" href="#meat1">Prevention and Proper Cooking</a></li>
+                                    <li class="active2"><a href="#meat2">Symptoms </a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="meat1" class="tab-pane fade in active" style="background-color:white">
+                                        <br>
+                                        <p class="text">1) Hunters should not handle or consume deer or other wild animals that appear sick or act abnormally, regardless of the cause. </p>
+                                        <p class="text">2) Keep raw meat and cooked meat separate to prevent cross-contamination.</p>
+                                        <p class="text">3) Keep food surfaces clean. Wash all utensils, plates, platters, and cutlery as soon as used.  </p>
+                                        <p class="text">4) Separate raw food from cooked food. </p>
+                                        <p class="text">5) Cook food thoroughly, to the appropriate temperature. </p>
+                                        <p class="text">6)Use safe water and raw materials. </p>
+                                    </div>
+                                    <div id="meat2" class="tab-pane fade" style="background-color:white">
+                                        <br>
+                                        <p class="text">1) <strong> E.coli:</strong> Symptoms include severe diarrhea (some bloody), and painful abdominal cramps.  </p>
+                                        <p class="text">2) <strong> Salmonella: </strong> Symptoms include headache, muscle aches, diarrhea, vomiting, abdominal cramping, chills, fever, nausea and dehydration. Symptoms usually appear six to 72 hours after ingestion of the bacteria. </p>
+                                        <p class="text">3) <strong>Trichinellosis: </strong>The 1st symptoms is gastrointestinal, and it occures one to two days after eating raw or undercooked meat from an infected animal. Other symptoms include nausea, diarrhea, vomiting, and abdominal pain.   </p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3> How to Cook a Fish in the Wild</h3> 
+                                    <p class="text">1)Find some broad leaves, any that are big enough to wrap around your fish without falling off. </p>
+                                    <p class="text">2) Wrap your catch up in the leaves in several layers, so that the flesh isn’t directly exposed if one layer burns off. This ensures that the fish will cook evenly by reducing the impact heat.</p>
+                                    <p class="text">3) Once your fish has been wrapped, stick it right on the coals and embers of your fire. There should be plenty of heat there.</p>
+                                    <p class="text">4)Flip the fish once, about halfway through cooking. </p>
+                                    <p class="text">5)Remove when an inspection of the fish reveals the flesh has turned opaque and is cooked through.</p>
+                                    <div class="container">
+                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Image</button>
+                                        <div class="modal fade" id="myModal" role="dialog">
+                                            <div class="modal-dialog modal-sm">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <img class="image3" src="images/recipe1.jpg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Quiz Time!</h3> 
+                            </div>
+                            <div class="text">
+                                <p>If ready for the Quiz click the button :)</p>
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalQuiz">Quiz</button>
+                                <div id="myModalQuiz" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-body" id="quiz" style="background-color: #D3D3D3">
+                                        <div id = "output"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button onclick = "grade()">Grade</button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="image" src="images/quiztime.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>

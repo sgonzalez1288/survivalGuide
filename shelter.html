@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+</head>
+<script type = "text/template" id = "template">
+    <div class = "card">
+        <h1 class="heading1">{{question}}</h1>
+        <p>1) {{choice1}}</p>
+        <p>2) {{choice2}}</p>
+        {{#choice3}}<p>3) {{choice3}}</p>{{/choice3}}
+        {{#choice4}}<p>4) {{choice4}}</p>{{/choice4}}
+        <input type = "text" id = "{{id}}" placeholder = "Enter Choice" class="answer">
+    </div>
+</script>
+<script>
+    var data;
+    function loadJSON(){
+        $.getJSON("https://ultimatesurvival-8ad92.firebaseio.com/.json",function(results){
+            data = results;
+            displayData();
+        })
+    }
+    function displayData(){
+        var build = "";
+        var output=document.getElementById("output");
+        var template=document.getElementById("template").innerHTML;
+        for(var key in data.shelter){
+            build += Mustache.render(template,data.shelter[key]);
+            }
+        output.innerHTML= build;
+    }
+    function grade(){
+        var score = 0;
+        for(var i = 1; i <= 3; i++){
+            var correctAnswer = data.shelter["q" + i].answer;
+            var userAnswer = document.getElementById("q" + i).value;
+            if(correctAnswer == userAnswer){
+                score ++;
+            }
+        }
+        alert("You scored " + score);
+    }
+</script>
+<style>
+.jumbotron{
+    text-align: center;
+    background-color: plum;
+    color: #4CAF50;
+    text-shadow: 3px 2px purple;
+}
+.jumbotron2{
+    text-align: center;
+    background-color: plum;
+    color: #4CAF50;
+    text-shadow: 3px 2px purple;
+}
+
+.logo{
+  height:200px;
+}
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+
+body{
+    margin:0;
+}
+
+.text{
+    font-size: 14pt;
+}
+
+.icon-bar {
+    width: 75px;
+    background-color: #4CAF50;
+}
+
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 36px;
+}
+
+.icon-bar a:hover {
+    background-color: #D3D3D3;
+}
+
+.active {
+    background-color: plum ;
+}
+
+.image{
+    width: 50%;
+    height: 160px;
+    padding: 5px;
+    float: left;
+}
+
+.explanantion{
+    text-align: center;
+    font-size: 16pt;
+}
+
+.panel-body{
+    height: 500px;
+}
+.b {
+    height: 50px;
+    width: 200px;
+    font-size: 20pt;
+    color: plum;
+}
+.modal-dialog{
+    font-size: 19pt;
+    color: purple
+}
+.heading1{
+    font-size: 19pt;
+    font-weight: bold;
+    color: purple;
+}
+.answer{
+    width: 200px;
+    background-color: #D3D3D3;
+}
+
+</style>
+
+<body onload="loadJSON()">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="jumbotron">
+                <h1>How to Build a Shelter!</h1> 
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="center">
+                <img class="logo" src="images/tent.png">
+            </div>
+        </div>    
+
+    </div>
+    
+    <div class="row">
+
+        <div class="col-md-1">
+            <div class="icon-bar">
+                <a class="active" href="index.html"><i class="fa fa-home"></i></a> 
+                <a href="about.html"><i class="fa fa-users"></i></a> 
+                <a href="fire.html"><i class="fa fa-free-code-camp"></i></a> 
+                <a href="shelter.html"><i class="fa fa-bed"></i></a> 
+                <a href="food.html"><i class="fa fa-cutlery"></i></a>
+                <a href="water.html"><i class="fa fa-tint"></i></a> 
+            </div>
+        </div>
+        <div class="col-md-11">
+            <div class="jumbotron2">
+                <h1>The Ultimate Shelter</h1>
+            </div>
+             <div class="explanantion">
+                <p>The beauty of this shelter is the physics behind why and how it works, which is very similar to a greenhouse. The heat from a small fire placed a few feet in front of the shelter passes through the clear plastic and reflects off the top and back of the shelter and then absorbs into your body and bedding. A shelter with this design can easily be 50-60 degrees inside when the temperature outside is in the teens. It doesn’t require a huge fire either. A small, hot fire is very effective and it holds heat impressively well.</p>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Step 1. Build the Frame</h3> 
+                            </div>
+                            <div class="text">
+                                <p> This shelter design starts with a framework that lifts the bed 12-18” off the ground to prevent the cold earth from sucking every ounce of heat from your body.Once the “walls” are up, it’s time for a few cross-support beams. These are simply two or three 1-2” sturdy limbs placed between the walls. These can be moved forwards and backwards for comfort later. It might be helpful to place one behind your knees and one on your lower back.</p>
+                            </div>
+                            <img class="image" src="images/Bstep1.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Step 2. Build the Bed</h3> 
+                            </div>
+                            <div class="text">
+                                <p> Just break off the last 18” of branch tips from live saplings and arrange handfuls of them. </p>      
+                            </div>
+                            <img class="image" src="images/Bstep2.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Step 3. The Dome Framework</h3> 
+                            </div>
+                            <div class="text">
+                                <p> Start by cutting 10 saplings that are 8 feet long x 1 inch in diameter at the base. They need to be long, thin, and flexible. These saplings can either be wedged in the framework or stuck in the ground at the edge of the frame. You start by bending the saplings at the head and foot of the bed toward the middle and then just twist them together. Finally, the backside saplings are woven over and under the arches. This creates a half dome framework as shown.</p>
+                            </div>
+                            <img class="image" src="images/Bstep3.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Step 4. The Magic</h3> 
+                            </div>
+                            <div class="text">
+                                <p>Now that the structure is complete, we use two reflective emergency blankets to line the back and top of the dome frame. Packing emergency blankets as well as plastic sheeting in one’s survival kit is recommended they’re lightweight and incredibly versatile. As an option you can secure them with wilderness clips made out of small tree branches as shown in the picture below. </p>
+                            </div>
+                            <img class="image" src="images/Bstep4.jpg">
+                            <img class="image" src="images/woodclips.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>How It Works!</h3> 
+                            </div>
+                            <div class="text">
+                                <p>The heat from a small fire placed a few feet in front of the shelter passes through the clear plastic and reflects off the top and back of the shelter and then absorbs into your body and bedding. A shelter with this design can easily be 50-60 degrees inside when the temperature outside is in the teens. A small, hot fire is very effective and it holds heat impressively well.</p>
+                            </div>
+                            <img class="image" src="images/Bstep5.jpg">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="heading2">
+                                <h3>Quiz Time!</h3> 
+                            </div>
+                            <div class="text">
+                                <p>If ready for the Quiz click the button :)</p>
+                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalQuiz">Quiz</button>
+                                <div id="myModalQuiz" class="modal fade" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-body" id="quiz" style="background-color: #D3D3D3">
+                                        <div id = "output"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button onclick = "grade()">Grade</button>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="image" src="images/quiztime.png">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
